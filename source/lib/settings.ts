@@ -8,7 +8,7 @@ class Settings {
     }
 
     initialize(): void {
-        // Service Setup
+        // Secret key for Json Web Token generation & validation.
         this.jwtSecret = process.env['API_JWT_SECRET'];
         if (!this.jwtSecret) {
             logger.warn('Environment variable API_JWT_SECRET not set, using an insecure default value');
