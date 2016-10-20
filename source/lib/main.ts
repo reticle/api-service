@@ -16,4 +16,4 @@ server.get('/', (req, res) => {
 });
 
 server.listen(settings.servicePort,
-    () => logger.info(`Service router-service listening on port ${settings.servicePort}`));
+    () => logger.info(`Service listening on port ${settings.servicePort}`));
