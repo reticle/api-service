@@ -12,7 +12,8 @@ describe('Settings', () => {
     // Setup a valid environment before each test.
     beforeEach(() => {
         process.env = {
-            'API_JWT_SECRET': '1234',
+            'RETICLE_SERVICE_PORT': 1234,
+            'RETICLE_JWT_SECRET': '1234',
         };
 
         settings = new Settings();
@@ -20,20 +21,48 @@ describe('Settings', () => {
 
     // Test initialization.
     describe('#initialize', () => {
+        // Service port.
+        it('should read the service port', () => {
+            settings.initialize();
+            settings.servicePort.should.equal(1234);
+        });
+
+        it('should assign a default port if not set', () => {
+            delete process.env['RETICLE_SERVICE_PORT'];
+
+            settings.initialize();
+            settings.servicePort.should.equal(3000);
+        });
+
+        it('should assign a default port if empty', () => {
+            process.env['RETICLE_SERVICE_PORT'] = '';
+
+            settings.initialize();
+            settings.servicePort.should.equal(3000);
+        });
+
+        it('should assign a default port if it contains an invalid value', () => {
+            process.env['RETICLE_SERVICE_PORT'] = 'NOT A NUMBER';
+
+            settings.initialize();
+            settings.servicePort.should.equal(3000);
+        });
+
+        // JWT secret key.
         it('should read the JWT secret', () => {
             settings.initialize();
             settings.jwtSecret.should.equal('1234');
         });
 
         it('should assign a default JWT secret if not set', () => {
-            delete process.env['API_JWT_SECRET'];
+            delete process.env['RETICLE_JWT_SECRET'];
 
             settings.initialize();
             settings.jwtSecret.should.equal('INSECURE_SECRET_KEY');
         });
 
         it('should assign a default JWT secret if empty', () => {
-            process.env['API_JWT_SECRET'] = '';
+            process.env['RETICLE_JWT_SECRET'] = '';
 
             settings.initialize();
             settings.jwtSecret.should.equal('INSECURE_SECRET_KEY');
