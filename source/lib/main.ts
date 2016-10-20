@@ -15,4 +15,5 @@ server.get('/', (req, res) => {
     res.send(200, { it: 'works' });
 });
 
-server.listen(3000, () => logger.info('router-service listening on port 3000'));
+server.listen(settings.servicePort,
+    () => logger.info(`Service router-service listening on port ${settings.servicePort}`));

@@ -25,7 +25,7 @@ class Settings {
         // Secret key for Json Web Token generation & validation.
         this.jwtSecret = process.env['RETICLE_JWT_SECRET'];
         if (!this.jwtSecret) {
-            logger.warn('Environment variable API_JWT_SECRET not set, using an insecure default value');
+            logger.warn('Environment variable RETICLE_JWT_SECRET not set, using an insecure default value');
             this.jwtSecret = 'INSECURE_SECRET_KEY';
         }
     }
