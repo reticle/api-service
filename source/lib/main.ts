@@ -10,7 +10,6 @@ try {
     process.exit(1);
 }
 
-
 const server = restify.createServer();
 server.get('/', (req, res) => {
     res.send(200, { it: 'works' });

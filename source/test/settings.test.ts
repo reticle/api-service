@@ -20,9 +20,8 @@ describe('Settings', () => {
     });
 
     // Test initialization.
-    describe('#initialize', () => {
-        // Service port.
-        it('should read the service port', () => {
+    describe('Service Port', () => {
+        it('should read a valid value', () => {
             settings.initialize();
             settings.servicePort.should.equal(1234);
         });
@@ -47,9 +46,10 @@ describe('Settings', () => {
             settings.initialize();
             settings.servicePort.should.equal(3000);
         });
+    });
 
-        // JWT secret key.
-        it('should read the JWT secret', () => {
+    describe('JWT Secret Key', () => {
+        it('should read a valid value', () => {
             settings.initialize();
             settings.jwtSecret.should.equal('1234');
         });

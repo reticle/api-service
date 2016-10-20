@@ -22,7 +22,6 @@ class Settings {
             this.servicePort = 3000;
         }
 
-
         // Secret key for Json Web Token generation & validation.
         this.jwtSecret = process.env['RETICLE_JWT_SECRET'];
         if (!this.jwtSecret) {
