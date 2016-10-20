@@ -1,35 +1,31 @@
 import logger from './logger';
 
-class Settings {
-    public servicePort: number;
-    public jwtSecret: string;
-
-    constructor() {
-        //
-    }
+export class Settings {
+    public servicePort: number = 3000;
+    public jwtSecret: string = 'INSECURE_SECRET_KEY';
 
     initialize(): void {
         // Service listening port.
         try {
-            this.servicePort = parseInt(process.env['RETICLE_SERVICE_PORT'], 10);
+            const port = parseInt(process.env['RETICLE_SERVICE_PORT'], 10);
 
-            if (!this.servicePort) {
-                logger.warn('Environment variable RETICLE_SERVICE_PORT not set, using default port 3000');
-                this.servicePort = 3000;
+            if (port) {
+                this.servicePort = port;
+            } else {
+                logger.warn('Environment variable RETICLE_SERVICE_PORT not set, using default port');
             }
         } catch (exception) {
-            logger.warn('Environment variable RETICLE_SERVICE_PORT is not valid, using default port 3000');
-            this.servicePort = 3000;
+            logger.warn('Environment variable RETICLE_SERVICE_PORT is not valid, using default port');
         }
 
         // Secret key for Json Web Token generation & validation.
-        this.jwtSecret = process.env['RETICLE_JWT_SECRET'];
-        if (!this.jwtSecret) {
+        const key = process.env['RETICLE_JWT_SECRET'];
+        if (key) {
+            this.jwtSecret = key;
+        } else {
             logger.warn('Environment variable RETICLE_JWT_SECRET not set, using an insecure default value');
-            this.jwtSecret = 'INSECURE_SECRET_KEY';
         }
     }
 }
 
-export { Settings };
 export default new Settings();
