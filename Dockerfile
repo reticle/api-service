@@ -1,4 +1,4 @@
-FROM node:6.9.0
+FROM node:6.9.1
 
 RUN useradd --user-group --shell /bin/false app && \
     mkdir /app
