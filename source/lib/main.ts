@@ -15,5 +15,10 @@ server.get('/', (req, res) => {
     res.send(200, { it: 'works' });
 });
 
+
+server.on('NotFound', (req: restify.Request, res: restify.Response) => {
+    res.send(200, { it: 'works (almost ...)' });
+});
+
 server.listen(settings.servicePort,
     () => logger.info(`Service listening on port ${settings.servicePort}`));
